@@ -1,0 +1,16 @@
+{
+  "name": "prithvi-node",
+  "version": "1.0.0",
+  "description": "test env for sentry",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Prithvi",
+  "license": "ISC",
+  "dependencies": {
+    "@sentry/node": "^7.0.0",
+    "@sentry/tracing": "^7.0.0"
+  }
+}
