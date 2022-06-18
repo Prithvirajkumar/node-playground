@@ -76,10 +76,10 @@ Sentry.init({
 
 // scope of tags test
 
-const transaction = Sentry.startTransaction({
-  op: "test",
-  name: "My Transaction",
-});
+// const transaction = Sentry.startTransaction({
+//   op: "test",
+//   name: "My Transaction",
+// });
 
 // const foo = () => {
 //   try {
@@ -103,22 +103,22 @@ const transaction = Sentry.startTransaction({
 //   transaction.finish();
 // }
 
-const foo = () => {
-  try {
-    Sentry.configureScope(function (scope) {
-      scope.setTag("inner-scope", "foo-function");
-      Sentry.configureScope(function (scope) {
-        scope.setTag("nested-inner-scope", "will-it-work");
-      });
-    });
-    throw new Error("New Error from foo function");
-  } catch (e) {
-    Sentry.captureException(e);
-  } finally {
-    transaction.finish();
-  }
-};
+// const foo = () => {
+//   try {
+//     Sentry.configureScope(function (scope) {
+//       scope.setTag("inner-scope", "foo-function");
+//       Sentry.configureScope(function (scope) {
+//         scope.setTag("nested-inner-scope", "will-it-work");
+//       });
+//     });
+//     throw new Error("New Error from foo function");
+//   } catch (e) {
+//     Sentry.captureException(e);
+//   } finally {
+//     transaction.finish();
+//   }
+// };
 
-foo();
+// foo();
 
 console.log("Sentry test done!");
