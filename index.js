@@ -74,8 +74,6 @@ Sentry.init({
 //   transaction4.finish();
 // }
 
-// scope of tags test
-
 // const transaction = Sentry.startTransaction({
 //   op: "test",
 //   name: "My Transaction",
