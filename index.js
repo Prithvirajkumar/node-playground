@@ -117,6 +117,6 @@ Sentry.init({
 //   }
 // };
 
-// foo();
+foo();
 
 console.log("Sentry test done!");
