@@ -117,6 +117,42 @@ Sentry.init({
 //   }
 // };
 
-foo();
+// foo();
 
-console.log("Sentry test done!");
+console.log("Sentry test started!");
+
+const outerTransaction = Sentry.startTransaction({
+  op: "outer-transaction",
+  name: "Outer Transaction",
+});
+
+console.log("started outer transaction");
+
+if (outerTransaction) {
+  let span = outerTransaction.startChild({
+    op: "span-containing-inner-transaction",
+    description: "span containing inner transaction",
+  });
+  const foo = new Promise((resolve, reject) => {
+    console.log("running foo()");
+    const innerTransaction = Sentry.startTransaction({
+      op: "inner-transaction",
+      name: "Inner Transaction",
+    });
+    console.log("started inner transaction");
+    setTimeout(() => {
+      innerTransaction.finish();
+      console.log("finished inner transaction");
+      resolve("resolved");
+    }, 3000);
+  });
+
+  foo.then(() => {
+    span.finish();
+    setTimeout(() => {
+      outerTransaction.finish();
+      console.log("finished outer transaction");
+      console.log("Sentry test done!");
+    }, 5000);
+  });
+}
