@@ -4,26 +4,28 @@ const Tracing = require("@sentry/tracing");
 Sentry.init({
   dsn: "https://07664b63c7554e029b5aa39d08cf28c9@o87286.ingest.sentry.io/6469184",
   tracesSampleRate: 1.0,
+  release: "prithvi-node@1.0.1",
+  autoSessionTracking: false,
 });
 
 // fingerprint rule tests
 // message:"Ambassador client request failed:*" -> ambassador-request-error title="[CustomGroup] Ambassador client request failed (see Events tab for more): {{ tags.which-message }}"
 
-// const transaction = Sentry.startTransaction({
-//   op: "test",
-//   name: "My First Test Transaction",
-// });
+const transaction = Sentry.startTransaction({
+  op: "test",
+  name: "My First Test Transaction",
+});
 
-// try {
-//   Sentry.configureScope(function (scope) {
-//     scope.setTag("which-function", "foo-function");
-//   });
-//   foo();
-// } catch (e) {
-//   Sentry.captureException(e);
-// } finally {
-//   transaction.finish();
-// }
+try {
+  Sentry.configureScope(function (scope) {
+    scope.setTag("which-function", "foo-function");
+  });
+  foo();
+} catch (e) {
+  Sentry.captureException(e);
+} finally {
+  transaction.finish();
+}
 
 // const transaction2 = Sentry.startTransaction({
 //   op: "test",
@@ -119,40 +121,64 @@ Sentry.init({
 
 // foo();
 
-console.log("Sentry test started!");
+// --------------> Nested Transaction Test  <---------------
+// console.log("Sentry test started!");
 
-const outerTransaction = Sentry.startTransaction({
-  op: "outer-transaction",
-  name: "Outer Transaction",
-});
+// const outerTransaction = Sentry.startTransaction({
+//   op: "outer-transaction",
+//   name: "Outer Transaction",
+// });
 
-console.log("started outer transaction");
+// console.log("started outer transaction");
 
-if (outerTransaction) {
-  let span = outerTransaction.startChild({
-    op: "span-containing-inner-transaction",
-    description: "span containing inner transaction",
-  });
-  const foo = new Promise((resolve, reject) => {
-    console.log("running foo()");
-    const innerTransaction = Sentry.startTransaction({
-      op: "inner-transaction",
-      name: "Inner Transaction",
-    });
-    console.log("started inner transaction");
-    setTimeout(() => {
-      innerTransaction.finish();
-      console.log("finished inner transaction");
-      resolve("resolved");
-    }, 3000);
-  });
+// if (outerTransaction) {
+//   let span = outerTransaction.startChild({
+//     op: "span-containing-inner-transaction",
+//     description: "span containing inner transaction",
+//   });
+//   const foo = new Promise((resolve, reject) => {
+//     console.log("running foo()");
+//     const innerTransaction = Sentry.startTransaction({
+//       op: "inner-transaction",
+//       name: "Inner Transaction",
+//     });
+//     console.log("started inner transaction");
+//     setTimeout(() => {
+//       innerTransaction.finish();
+//       console.log("finished inner transaction");
+//       resolve("resolved");
+//     }, 3000);
+//   });
 
-  foo.then(() => {
-    span.finish();
-    setTimeout(() => {
-      outerTransaction.finish();
-      console.log("finished outer transaction");
-      console.log("Sentry test done!");
-    }, 5000);
-  });
-}
+//   foo.then(() => {
+//     span.finish();
+//     setTimeout(() => {
+//       outerTransaction.finish();
+//       console.log("finished outer transaction");
+//       console.log("Sentry test done!");
+//     }, 5000);
+//   });
+// }
+
+// -------END---------
+
+// Session test
+// const SessionTest = Sentry.startTransaction({
+//   op: "session-transaction",
+//   name: "Session Transaction",
+// });
+// const foo = new Promise((resolve, reject) => {
+//   Sentry.getCurrentHub().startSession({
+//     status: "crashed",
+//   });
+//   setTimeout(() => {
+//     resolve("resolved");
+//   }, 3000);
+// });
+
+// foo.then(() => {
+//   Sentry.getCurrentHub().endSession();
+//   SessionTest.finish();
+// });
+
+// ---END---
