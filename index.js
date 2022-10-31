@@ -20,7 +20,7 @@ try {
   Sentry.configureScope(function (scope) {
     scope.setTag("which-function", "foo-function");
   });
-  foo();
+  newFoo();
 } catch (e) {
   Sentry.captureException(e);
 } finally {
