@@ -10,7 +10,7 @@
   "author": "Prithvi",
   "license": "ISC",
   "dependencies": {
-    "@sentry/node": "^7.17.3",
-    "@sentry/tracing": "^7.17.3"
+    "@sentry/node": "^7.43.0",
+    "@sentry/tracing": "^7.43.0"
   }
 }
