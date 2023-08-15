@@ -12,7 +12,7 @@ Sentry.init({
   //   }
   //   return event;
   // },
-  // test 4
+  // test 5
 });
 
 (function () {
