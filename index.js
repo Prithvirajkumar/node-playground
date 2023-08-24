@@ -36,6 +36,6 @@ Sentry.init({
   Sentry.configureScope(function (scope) {
     scope.setLevel("info");
     Sentry.setTag("se", "Prithvi");
-    throw new Error("new Bust");
+    throw new Error("new new Bust");
   });
 })();
