@@ -15,7 +15,7 @@ Sentry.init({
   //   return event;
   // },
   // test 6
-  release: "suspect-release",
+  release: "a_whole_new_suspect-release",
 });
 
 // (function () {

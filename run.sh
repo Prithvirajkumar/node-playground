@@ -9,4 +9,4 @@ SENTRY_PROJECT=nodejs
 # sentry-cli releases -o $SENTRY_ORG new -p $SENTRY_PROJECT $RELEASE
 # sentry-cli releases -o $SENTRY_ORG -p $SENTRY_PROJECT set-commits $RELEASE@$VERSION --commit "Prithvirajkumar/node-playground@a4f4b7c17924b0b8532c8198381cb13b34e29ca5"
 # sentry-cli releases -o $SENTRY_ORG -p $SENTRY_PROJECT set-commits $RELEASE --commit "Prithvirajkumar/node-playground@f5ba4c7270d3705fdd56bb970a7542f97f7f5ecc"
-sentry-cli releases -o $SENTRY_ORG -p $SENTRY_PROJECT set-commits "suspect-release" --commit "Prithvirajkumar/node-playground@5bb678f837849f76017bab40affae5a08a8a7c98"
+sentry-cli releases -o $SENTRY_ORG -p $SENTRY_PROJECT set-commits "a_whole_new_suspect-release" --commit "Prithvirajkumar/node-playground@5bb678f837849f76017bab40affae5a08a8a7c98"
