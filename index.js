@@ -4,6 +4,7 @@ const Tracing = require("@sentry/tracing");
 Sentry.init({
   dsn: "https://2687e6d7c6af4b14838b2651a40ad5a3@o1161257.ingest.sentry.io/6307748",
   // dsn: "https://82a71827fb8643dea9be8f45fe0c97b5@o1161257.ingest.sentry.io/4504644936859648",
+  // dsn: "https://53cea17c1e5940eb928a215cacad298d@o87286.ingest.sentry.io/6469184",
   tracesSampleRate: 1,
   integrations: [new Sentry.Integrations.Http({ tracing: true })],
   // beforeSendTransaction(event) {
@@ -14,7 +15,7 @@ Sentry.init({
   //   return event;
   // },
   // test 6
-  release: "my-new-release",
+  release: "a_whole_new_suspect-release",
 });
 
 // (function () {
@@ -34,8 +35,8 @@ Sentry.init({
 
 (function () {
   Sentry.configureScope(function (scope) {
-    scope.setLevel("info");
+    scope.setLevel("warning");
     Sentry.setTag("se", "Prithvi");
-    throw new Error("new new new new bust");
+    throw new Error("A Whole New Error");
   });
 })();
