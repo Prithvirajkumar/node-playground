@@ -15,7 +15,7 @@ Sentry.init({
   //   return event;
   // },
   // test 6
-  release: "slack-test-release",
+  release: "slack-test-release-2",
 });
 
 // (function () {
@@ -37,6 +37,6 @@ Sentry.init({
   Sentry.configureScope(function (scope) {
     scope.setLevel("fatal");
     Sentry.setTag("se", "Prithvi");
-    throw new Error("Slack Error");
+    throw new Error("Slack Error 2");
   });
 })();
