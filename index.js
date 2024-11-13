@@ -8,13 +8,21 @@ Sentry.init({
   profilesSampleRate: 1.0,
 });
 
-function problematicFunction() {
-  throw new Error("This is a test error for Sentry.");
+// Function with a type error
+function addNumbers(a, b) {
+  return a + b;
 }
 
+// Intentionally passing a string to cause a type error
+const result = addNumbers(5, "ten");
+console.log(`Result: ${result}`);
+
+// Capture the error with Sentry
 try {
-  problematicFunction();
+  if (isNaN(result)) {
+    throw new TypeError("Invalid result: Expected a number");
+  }
 } catch (error) {
   Sentry.captureException(error);
-  console.error("An error occurred:", error);
+  console.error("Error captured in Sentry:", error);
 }
