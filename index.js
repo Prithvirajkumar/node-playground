@@ -26,5 +26,3 @@ try {
   Sentry.captureException(error);
   console.error("Error captured in Sentry:", error);
 }
-
-// new edit
