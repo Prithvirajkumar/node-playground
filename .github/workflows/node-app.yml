@@ -1,0 +1,49 @@
+name: Node.js App Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run_node_app:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Generate a unique run ID
+      - name: Generate Run ID
+        id: generate-id
+        run: |
+          RUN_ID=$(uuidgen)
+          echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
+        shell: bash
+
+      # Run the Node.js application
+      - name: Run Node.js App
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          RUN_ID: ${{ env.RUN_ID }}
+        run: node index.js
+
+      # Output Run ID
+      - name: Output Run ID
+        run: |
+          echo "Generated RUN_ID: ${{ steps.generate-id.outputs.RUN_ID }}"
