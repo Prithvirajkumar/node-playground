@@ -4,13 +4,15 @@
   "description": "test env for sentry",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "author": "Prithvi",
-  "license": "ISC",
+  "license": "ISC"
   "dependencies": {
-    "@sentry/node": "^8.38.0",
-    "@sentry/profiling-node": "^8.38.0"
+    "@sentry/node": "^7.91.0",
+    "@sentry/profiling-node": "^1.2.6"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
