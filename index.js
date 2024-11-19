@@ -8,29 +8,21 @@ Sentry.init({
   profilesSampleRate: 1.0,
 });
 
+// Function with a type error
 function addNumbers(a, b) {
-  // Convert inputs to numbers and validate
-  const numA = Number(a);
-  const numB = Number(b);
-
-  // Check if either conversion resulted in NaN
-  if (isNaN(numA)) {
-    throw new TypeError(`Invalid first argument: Expected a number, got ${typeof a}`);
-  }
-  if (isNaN(numB)) {
-    throw new TypeError(`Invalid second argument: Expected a number, got ${typeof b}`);
-  }
-
-  // Perform the addition with validated numbers
-  return numA + numB;
+  return a + b;
 }
 
+// Intentionally passing a string to cause a type error
+const result = addNumbers(5, "ten");
+console.log(`Result: ${result}`);
+
+// Capture the error with Sentry
 try {
-  const result = addNumbers(5, "ten");
-  console.log(`Result: ${result}`);
+  if (isNaN(result)) {
+    throw new TypeError("Invalid result: Expected a number");
+  }
 } catch (error) {
   Sentry.captureException(error);
   console.error("Error captured in Sentry:", error);
 }
-
-module.exports = { addNumbers };
